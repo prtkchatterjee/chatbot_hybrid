@@ -1,0 +1,54 @@
+<html>
+	<body>
+		<h1>Chatbot Personality Data - Admin</h1>
+		<div id = "lastDiv"></div>
+		<script>
+			function adminRefresher() {
+				xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = adminRefresherHandler;
+				xhr.open("GET","adminRefresher.php",true);
+				xhr.send();
+			}
+			setInterval(adminRefresher,5000);
+			function adminRefresherHandler() {
+				if(xhr.readyState == 4 && xhr.status == 200) {
+					if(xhr.responseText == "Nothing")
+						return;
+					var jsonResponse = JSON.parse(xhr.responseText);
+					for(var key in jsonResponse) {
+						var userId = parseInt(key.split(",")[0]);
+						var msgId = parseInt(key.split(",")[1]);
+						var msg = jsonResponse[key];
+						var tempDiv = document.createElement("div");
+						tempDiv.innerHTML = userId + ": " + msg;
+						tempDiv.id = "msg"+userId;
+						var inpBox = document.createElement("input");
+						inpBox.setAttribute("type","text");
+						inpBox.id = "inp"+userId;
+						var replyButton = document.createElement("input");
+						replyButton.setAttribute("type","button");
+						replyButton.id = "but"+userId;
+						replyButton.className = "class"+msgId;
+						replyButton.value = "Reply";
+						replyButton.onclick = replyHandler;
+						document.body.insertBefore(tempDiv,lastDiv);
+						document.body.insertBefore(inpBox,lastDiv);
+						document.body.insertBefore(replyButton,lastDiv);
+					}
+				}
+			}
+			function replyHandler(event) {
+				var userId = event.target.id.substring(3,event.target.id.length);
+				var msgId = event.target.className.substring(5,event.target.id.length);
+				var msg = event.target.previousSibling.value;
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST","receiveReply.php",true);
+				xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xhr.send("userId="+userId+"&msgId="+msgId+"&msg="+msg);
+				document.body.removeChild(event.target.previousSibling.previousSibling);
+				document.body.removeChild(event.target.previousSibling);
+				document.body.removeChild(event.target);
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<h1>Chatbot Personality Data - User</h1>
+		<input type = "text" id = "inpBox">
+		<input type = "button" id = "sendMsg" value = "Send">
+		<script>
+			document.body.onload = ready;
+			sendMsg.onclick = sendMsgHandler;
+			function ready() {
+				userId = localStorage.getItem('userId');
+				if(!userId) {
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function() {
+						if(xhr.readyState == 4 && xhr.status == 200) {
+							userId = parseInt(xhr.responseText);
+							console.log(userId);
+							localStorage.setItem('userId',userId);
+						}
+					}
+					xhr.open("GET","registerUser.php",true);
+					xhr.send();
+				}
+			}
+			function clientRefresher() {
+				xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = clientRefresherHandler;
+				xhr.open("GET","clientRefresher.php?userId="+userId,true);
+				xhr.send();
+			}
+			setInterval(clientRefresher,5000);
+			function clientRefresherHandler() {
+				if(xhr.readyState == 4 && xhr.status == 200) {
+					if(xhr.responseText == "Nothing")
+						return;
+					var jsonResponse = JSON.parse(xhr.responseText);
+					for(var key in jsonResponse) {
+						var msg = jsonResponse[key];
+						var tempDiv = document.createElement("div");
+						tempDiv.innerHTML = "Bot: " + msg;
+						document.body.insertBefore(tempDiv,inpBox);
+					}
+				}
+			}
+			function sendMsgHandler() {
+				var xhr = new XMLHttpRequest();
+				xhr.open("POST","receiveMsg.php",true);
+				xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				xhr.send("userId="+userId+"&msg="+inpBox.value);
+				var tempDiv = document.createElement("div");
+				tempDiv.innerHTML = "Me: " + inpBox.value;
+				inpBox.value = "";
+				document.body.insertBefore(tempDiv,inpBox);
+			}
+		</script>
+	<body>
+<html>
