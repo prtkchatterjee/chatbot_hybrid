@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8" />
+    		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="css/experiment-styles.css" />
+    		<link rel="stylesheet" href="css/experiment.css" />
+    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      	<link rel="stylesheet" href="css/style.css">
 		<style>
+			body {
+				/*background-color:purple;*/
+			}
 			.mytext{
 				border:0;padding:10px;background:whitesmoke;
 			}
@@ -67,28 +76,7 @@
 				top:0;
 				overflow-y:scroll;
 			}
-			.msj:before{
-				width: 0;
-				height: 0;
-				content:"";
-				top:-5px;
-				left:-14px;
-				position:relative;
-				border-style: solid;
-				border-width: 0 13px 13px 0;
-				border-color: transparent #ffffff transparent transparent;            
-			}
-			.msj-rta:after{
-				width: 0;
-				height: 0;
-				content:"";
-				top:-5px;
-				left:14px;
-				position:relative;
-				border-style: solid;
-				border-width: 13px 13px 0 0;
-				border-color: whitesmoke transparent transparent transparent;           
-			}  
+			  
 			input:focus{
 				outline: none;
 			}        
@@ -129,40 +117,134 @@
 			  margin-bottom:10px;
 			  font-weight:bold;
 			}
+			.quickAccess {
+				height:90px;
+				width:100%;
+			}
 			.quickAccessButton {
-				position:relative;
 				cursor:pointer;
-				margin-top:20px;
-				margin-bottom:10px;
 				width:90px;
 				height:90px;
-				left:50px;
+				margin-right:30px;
 			}
 			.animation
 			{
-				position:relative;
-				top:400px;
+				position:absolute;
+				left:250px;
+				top:150px;
 			}
 			#tempAnimationFrame {
 				opacity:0;
 			}
+			.frame {
+				position:absolute;
+				top:150px;
+				right:100px;
+				z-index:2;
+				background-color:transparent;
+			}
+			.faceDetection {
+				position:absolute;
+				top:0px;
+				right:100px;
+			}
+			.quickAccess {
+				position:absolute;
+				bottom:30px;
+				left:0px;
+				width:800px;
+			}
 		</style>
 	</head>
-    <body>
-    		<div class = "col-sm-3 col-sm-offset-1 quickAccess">
-    			<img src = "likebutton.png" id = "Like" class="quickAccessButton" name = "I like this so much!"><br>
-    			<img src = "lovebutton.png" id = "Love" class="quickAccessButton" name = "I really love this!"><br>
-    			<img src = "hahabutton.png" id = "Haha" class="quickAccessButton" name = "Hahaha! This is hilarious!"><br>
-    			<img src = "wowbutton.png" id = "Wow" class="quickAccessButton" name = "Wow! This is amazing"><br>
-    			<img src = "sadbutton.png" id = "Sad" class="quickAccessButton" name = "This is really sad!"><br>
-    			<img src = "angrybutton.png" id = "Angry" class="quickAccessButton" name = "I am really angry now!"><br>
+    <body style = "background-image:url('wp3.jpg');background-size:100% 100%">
+    		<div class = "faceDetection">
+			<div class="wrapper">
+        		<p class="learn">
+        		</p>
+
+			<canvas width="360" height="200" class="scale"></canvas>
+
+			<p class="transforming-content"></p>
+			<script src="js/ccv.js"></script>
+			<script src="js/face.js"></script>
+			</div>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+			<script src="js/experiment.js"></script>
     		</div>
+    		<!--<div class = "col-sm-4 col-sm-offset-1 animation">
+			<iframe id = "animationFrame" style = "border:3px black solid;" src = "Animation_FBX/Idle.html" width="700px" height="550px"></iframe>
+			<iframe id = "tempAnimationFrame" style = "border:3px black solid;" src = "" width="0px" height="0px"></iframe>
+        </div>-->
+        <div class = "animation">
+        		<div class="eevee">
+			  <div class="body">
+				<div class="head">
+				  <div class="normalears">
+					<div class="normalear">
+					  <div class="normallobe"></div>
+					</div>
+					<div class="normalear">
+					  <div class="normallobe"></div>
+					</div>
+				  </div>
+				  <div class="face">
+					<div class="normaleyes">
+					  <div class="normaleye">
+						<div class="normaleyelid"></div>
+					  </div>
+					  <div class="normaleye">
+						<div class="normaleyelid"></div>
+					  </div>
+					</div>
+					<div class="nose"></div>
+					<div class="normalmouth"></div>
+				  </div>
+				</div>
+				<div class="chest">
+				  <div class="fur">
+					<div class="patch"></div>
+				  </div>
+				  <div class="fur">
+					<div class="patch"></div>
+				  </div>
+				  <div class="fur">
+					<div class="patch"></div>
+				  </div>
+				</div>
+				<div class="legs">
+				  <div class="leg">
+					<div class="inner-leg"></div>
+				  </div>
+				  <div class="leg">
+					<div class="inner-leg"></div>
+				  </div>
+				  <div class="leg">
+					<div class="inner-leg"></div>
+				  </div>
+				  <div class="leg">
+					<div class="inner-leg"></div>
+				  </div>
+				</div>
+				<div class="normaltail">
+				  <div class="normaltail">
+					<div class="normaltail">
+					  <div class="normaltail">
+						<div class="normaltail">
+						  <div class="normaltail -end"></div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+        </div>
         <div class="col-sm-3 frame">
             <ul></ul>
             <div>
                 <div class="msj-rta macro">                        
-                    <div class="text text-r" style="background:whitesmoke !important">
-                        <input class="mytext" placeholder="Type a message"/>
+                    <div class="text text-r">
+                        <input class="mytext" id = "txtbox" placeholder="Type a message"/>
                     </div> 
                 </div>
                 <div style="padding:10px;">
@@ -170,18 +252,66 @@
                 </div>                
             </div>
         </div>
-        <div class = "col-sm-4 col-sm-offset-1 animation">
-			<iframe id = "animationFrame" style = "border:3px black solid;" src = "Animation_FBX/Idle.html" width="400px" height="300px"></iframe>
-			<iframe id = "tempAnimationFrame" style = "border:3px black solid;" src = "" width="0px" height="0px"></iframe>
-        </div>
+        <div class = "col-sm-3 col-sm-offset-1 quickAccess">
+    			<img src = "likebutton.png" id = "Like" class="quickAccessButton" name = "I like this so much!">
+    			<img src = "lovebutton.png" id = "Love" class="quickAccessButton" name = "I really love this!">
+    			<img src = "hahabutton.png" id = "Haha" class="quickAccessButton" name = "Hahaha! This is hilarious!">
+    			<img src = "wowbutton.png" id = "Wow" class="quickAccessButton" name = "Wow! This is amazing">
+    			<img src = "sadbutton.png" id = "Sad" class="quickAccessButton" name = "This is really sad!">
+    			<img src = "angrybutton.png" id = "Angry" class="quickAccessButton" name = "I am really angry now!">
+    		</div>
         <script>
+        		welcomeFlag = false
+        		goodbyeFlag = false
+        		timer = null
+        		document.addEventListener("facedetected", function(e) {
+				if(!welcomeFlag) {
+					insertChat("you","Hey there! Nice to meet you!");
+					var msg = new SpeechSynthesisUtterance("Hey there! Nice to meet you!");
+					//msg.voice = voices[11];
+					msg.voice = voices.filter(function (voice) { return voice.lang == 'en-IN'; })[0];
+					msg.pitch = 2;
+					msg.rate = 0.7;
+					window.speechSynthesis.speak(msg);
+					happyAnimation();
+					welcomeFlag = true;
+				}
+				if(timer == null && !goodbyeFlag) {
+					timer = setTimeout(function() {
+						insertChat("you","Please don't leave me and go");
+						var msg = new SpeechSynthesisUtterance("Please don't leave me and go");
+						msg.voice = voices[11];
+						msg.rate = 0.7;
+						window.speechSynthesis.speak(msg);
+						angryAnimation();
+						timer = null;
+						goodbyeFlag = true;
+					}, 10000);
+				}
+				else if(timer != null && !goodbyeFlag) {
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						insertChat("you","Please don't leave me and go");
+						var msg = new SpeechSynthesisUtterance("Please don't leave me and go");
+						msg.voice = voices[11];
+						msg.rate = 0.7;
+						window.speechSynthesis.speak(msg);
+						angryAnimation();
+						timer = null;
+						goodbyeFlag = true;
+					}, 10000);
+				}
+        		});
+        		window.speechSynthesis.onvoiceschanged = function() {
+				voices = window.speechSynthesis.getVoices();
+			};
         		$(".quickAccessButton").click(function() {
 				var text = this.name;
-				$("#tempAnimationFrame").attr("src", "Animation_FBX/"+this.id+".html");
+				/*$("#tempAnimationFrame").attr("src", "Animation_FBX/"+this.id+".html");
 				setTimeout(function(){
 					document.getElementById("animationFrame").parentNode.removeChild(document.getElementById("animationFrame"));
-					document.getElementById("tempAnimationFrame").width = "400px";
-					document.getElementById("tempAnimationFrame").height = "300px";
+					document.getElementById("tempAnimationFrame").width = "700px";
+					document.getElementById("tempAnimationFrame").height = "550px";
 					document.getElementById("tempAnimationFrame").id = "animationFrame";
 					var tempAnimationFrame = document.createElement("iframe");
 					tempAnimationFrame.width = "0px";
@@ -189,9 +319,11 @@
 					tempAnimationFrame.id = "tempAnimationFrame";
 					tempAnimationFrame.style = "border:3px black solid;";
 					document.getElementById("animationFrame").parentNode.appendChild(tempAnimationFrame);
-				},3000);
-				if (text !== ""){
-					insertChat("me", text);              
+				},3000);*/
+				if (text !== "" && !document.getElementById("txtbox").disabled){
+					insertChat("me", text);  
+					document.getElementById("txtbox").setAttribute("placeholder","Bot is typing...")  
+					document.getElementById("txtbox").disabled = true          
 					$(this).val('');
 					xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = replyHandler;
@@ -201,10 +333,10 @@
 				}
         		});
         		var me = {};
-			me.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
+			me.avatar = "mowgli.jpg";
 
 			var you = {};
-			you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+			you.avatar = "eevee.png";
 
 			function formatAMPM(date) {
 				var hours = date.getHours();
@@ -226,10 +358,10 @@
 				var date = formatAMPM(new Date());
 		
 				if (who == "me"){
-					control = '<li style="width:100%">' +
-						            '<div class="msj macro">' +
-						            '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'"></div>' +
-						                '<div class="text text-l">' +
+					control = '<li style="width:100%;">' +
+						            '<div class="msj macro" style="background-color:black;color:white;height:70px">' +
+						            '<div class="avatar"><img class="img-circle" style="width:100%;height:60px" src="'+ me.avatar +'"></div>' +
+						                '<div class="text text-l" style="color:white">' +
 						                    '<p>'+ text +'</p>' +
 						                    '<p><small>'+date+'</small></p>' +
 						                '</div>' +
@@ -238,12 +370,12 @@
 				}
 				else{
 					control = '<li style="width:100%;">' +
-						            '<div class="msj-rta macro">' +
-						                '<div class="text text-r">' +
+						            '<div class="msj-rta macro" style="background-color:black;color:white;height:70px">' +
+						                '<div class="text text-r" style="color:white">' +
 						                    '<p>'+text+'</p>' +
 						                    '<p><small>'+date+'</small></p>' +
 						                '</div>' +
-						            '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'"></div>' +                                
+						            '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;height:60px" src="'+you.avatar+'"></div>' +                                
 						      '</li>';
 				}
 				setTimeout(
@@ -260,9 +392,11 @@
 			$(".mytext").on("keydown", function(e){
 				if (e.which == 13){
 					var text = $(this).val();
-					$("#animationFrame").attr("src", "Animation_FBX/Idle.html")
+					//$("#animationFrame").attr("src", "Animation_FBX/Idle.html")
 					if (text !== ""){
-						insertChat("me", text);              
+						insertChat("me", text);
+						document.getElementById("txtbox").setAttribute("placeholder","Bot is typing...")       
+						document.getElementById("txtbox").disabled = true    
 						$(this).val('');
 						xhr = new XMLHttpRequest();
 						xhr.onreadystatechange = replyHandler;
@@ -272,10 +406,124 @@
 					}
 				}
 			});
+			function happyAnimation() {
+				var normaltails = document.querySelectorAll(".normaltail")
+				for(var i of normaltails) {
+					i.className = i.className.replace("normaltail","tail");
+				}
+				setTimeout(function() {
+					var tails = document.querySelectorAll(".tail")
+					for(var i of tails) {
+						i.className = i.className.replace("tail","normaltail");
+					}	
+				}, 10000);
+				var normalearss = document.querySelectorAll(".normalears")
+				for(var i of normalearss) {
+					i.className = i.className.replace("normalears","ears");
+				}
+				setTimeout(function() {
+					var earss = document.querySelectorAll(".ears")
+					for(var i of earss) {
+						i.className = i.className.replace("ears","normalears");
+					}	
+				}, 10000);
+				var normalears = document.querySelectorAll(".normalear")
+				for(var i of normalears) {
+					i.className = i.className.replace("normalear","ear");
+				}
+				setTimeout(function() {
+					var ears = document.querySelectorAll(".ear")
+					for(var i of ears) {
+						i.className = i.className.replace("ear","normalear");
+					}	
+				}, 10000);
+				var normallobes = document.querySelectorAll(".normallobe")
+				for(var i of normallobes) {
+					i.className = i.className.replace("normallobe","lobe");
+				}
+				setTimeout(function() {
+					var lobes = document.querySelectorAll(".lobe")
+					for(var i of lobes) {
+						i.className = i.className.replace("lobe","normallobe");
+					}	
+				}, 10000);
+				var normalmouths = document.querySelectorAll(".normalmouth")
+				for(var i of normalmouths) {
+					i.className = i.className.replace("normalmouth","mouth");
+				}
+				setTimeout(function() {
+					var mouths = document.querySelectorAll(".mouth")
+					for(var i of mouths) {
+						i.className = i.className.replace("mouth","normalmouth");
+					}	
+				}, 10000);
+			}
+			function angryAnimation() {
+				var normalmouths = document.querySelectorAll(".normalmouth")
+				for(var i of normalmouths) {
+					i.className = i.className.replace("normalmouth","mouth");
+				}
+				setTimeout(function() {
+					var mouths = document.querySelectorAll(".mouth")
+					for(var i of mouths) {
+						i.className = i.className.replace("mouth","normalmouth");
+					}	
+				}, 10000);
+				var normaleyess = document.querySelectorAll(".normaleyes")
+				for(var i of normaleyess) {
+					i.className = i.className.replace("normaleyes","eyes");
+				}
+				setTimeout(function() {
+					var eyess = document.querySelectorAll(".eyes")
+					for(var i of eyess) {
+						i.className = i.className.replace("eyes","normaleyes");
+					}	
+				}, 10000);
+				var normaleyes = document.querySelectorAll(".normaleye")
+				for(var i of normaleyes) {
+					i.className = i.className.replace("normaleye","eye");
+				}
+				setTimeout(function() {
+					var eyes = document.querySelectorAll(".eye")
+					for(var i of eyes) {
+						i.className = i.className.replace("eye","normaleye");
+					}	
+				}, 10000);
+				var normaleyelids = document.querySelectorAll(".normaleyelid")
+				for(var i of normaleyelids) {
+					i.className = i.className.replace("normaleyelid","eyelid");
+				}
+				setTimeout(function() {
+					var eyelids = document.querySelectorAll(".eyelid")
+					for(var i of eyelids) {
+						i.className = i.className.replace("eyelid","normaleyelid");
+					}	
+				}, 10000);
+			}
 			function replyHandler() {
 				if(xhr.readyState == 4 && xhr.status == 200) {
-					console.log(xhr.responseText);
-					insertChat("you", xhr.responseText);
+					var text = xhr.responseText.split(";")[0]
+					sentiment = parseInt(xhr.responseText.split(";")[1])
+					console.log(sentiment)
+					if(sentiment >= 2) {
+						happyAnimation();
+					}
+					else if(sentiment == 0) {
+						angryAnimation();
+					}
+					var msg = new SpeechSynthesisUtterance(text);
+					msg.voice = voices[11];
+					msg.rate = 0.7;
+					window.speechSynthesis.speak(msg);
+					if(sentiment == 3)
+						text += " :D"
+					else if(sentiment == 2)
+						text += " :)"
+					else if(sentiment == 0)
+						text += " :/"
+					insertChat("you", text);
+					document.getElementById("txtbox").setAttribute("placeholder","Type a message") 
+					document.getElementById("txtbox").disabled = false
 				}
 			}
  			$('body > div > div > div:nth-child(2) > span').click(function(){

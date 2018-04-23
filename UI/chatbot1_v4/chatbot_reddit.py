@@ -220,15 +220,17 @@ def chatbot(net, sess, chars, vocab, max_length, beam_width, relevance, temperat
                 forward_args={'relevance':relevance, 'mask_reset_token':vocab['\n'], 'forbidden_token':vocab['>'],
                                 'temperature':temperature, 'topn':topn})
             out_chars = []
-            for i, char_token in enumerate(computer_response_generator):
-                out_chars.append(chars[char_token])
-                #print(possibly_escaped_char(out_chars), end='', flush=True)
-                with open('op.txt', 'a') as f2:
+            print("->",end = " ")
+            with open('op.txt', 'w') as f2:
+                for i, char_token in enumerate(computer_response_generator):
+                    out_chars.append(chars[char_token])
+                    #print(possibly_escaped_char(out_chars), end='', flush=True) 
                     f2.write(possibly_escaped_char(out_chars))
-                states = forward_text(net, sess, states, relevance, vocab, chars[char_token])
-                if i >= max_length: break
-            states = forward_text(net, sess, states, relevance, vocab, sanitize_text(vocab, "\n> "))
-
+                    print(possibly_escaped_char(out_chars),end="")
+                    states = forward_text(net, sess, states, relevance, vocab, chars[char_token])
+                    if i >= max_length: break
+                states = forward_text(net, sess, states, relevance, vocab, sanitize_text(vocab, "\n> "))
+                print()
 def save_states(states, name):
     with open(name + '.pkl', 'wb') as f:
         pickle.dump(states, f)
